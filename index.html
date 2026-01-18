@@ -4,21 +4,26 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Clone Wars RP Loading Screen</title>
+    <title>Vex Networks - Loading</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;600;900&display=swap');
         
-        body, html {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
             height: 100%;
-            font-family: 'Orbitron', Arial, sans-serif;
-            background-color: #000000;
+            font-family: 'Barlow Condensed', sans-serif;
+            background: #000;
             color: white;
             overflow: hidden;
         }
         
-        .background-slideshow {
+        /* Animated Background Slideshow */
+        .background {
             position: fixed;
             top: 0;
             left: 0;
@@ -26,288 +31,298 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             z-index: 0;
+            opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
         
-        .overlay {
+        .background.active {
+            opacity: 1;
+        }
+        
+        /* Individual background animations */
+        .bg-1 {
+            background-image: url('thumb-1920-859561.jpg');
+            animation: slowZoomIn 20s ease-out infinite alternate;
+        }
+        
+        .bg-2 {
+            background-image: url('Star-Wars-Clones.gif');
+            /* GIF animates itself, no CSS animation */
+        }
+        
+        .bg-3 {
+            background-image: url('stormtrooper-commander-s8-2560x1440.jpg');
+            animation: zoomPan 25s ease-in-out infinite alternate;
+        }
+        
+        .bg-4 {
+            background-image: url('c1ssjwiwkhu21.gif');
+            /* GIF animates itself, no CSS animation */
+        }
+        
+        .bg-5 {
+            background-image: url('thumb-1920-1033111.jpg');
+            animation: panRight 30s linear infinite;
+        }
+        
+        /* Animation keyframes */
+        @keyframes slowZoomIn {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+        
+        @keyframes zoomPan {
+            0% { 
+                transform: scale(1);
+                background-position: center center;
+            }
+            100% { 
+                transform: scale(1.2);
+                background-position: 60% center;
+            }
+        }
+        
+        @keyframes panRight {
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
+        }
+        
+        /* Subtle vignette overlay */
+        .vignette {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(255,90,0,0.1) 50%, rgba(0,0,0,0.8) 100%);
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%);
+            pointer-events: none;
             z-index: 1;
         }
         
-        .main-container {
-            position: relative;
+        /* Top Letterbox Bar */
+        .letterbox-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 2;
-            height: 100vh;
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-            padding: 40px;
-            box-sizing: border-box;
         }
         
-        /* Header Section */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .server-title {
-            font-size: 5em;
-            font-weight: 900;
-            margin: 0;
-            background: linear-gradient(45deg, #ff5a00, #ff8c00, #ff5a00);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: titleGlow 3s ease-in-out infinite;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-        
-        @keyframes titleGlow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .server-subtitle {
-            font-size: 1.2em;
-            color: #cccccc;
-            margin-top: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        
-        /* Center Content */
-        .center-content {
+        .top-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 60px;
-            max-width: 1400px;
-            margin: 0 auto;
+            height: 100%;
+            padding: 0 60px;
+        }
+        
+        .server-name {
+            font-size: 2.5em;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        
+        .server-info {
+            display: flex;
+            gap: 50px;
+            font-size: 1em;
+            font-weight: 300;
+            color: #666;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .info-label {
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 3px;
+        }
+        
+        .info-value {
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        /* Bottom Letterbox Bar */
+        .letterbox-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
             width: 100%;
+            height: 120px;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 2;
         }
         
-        /* Loading Section */
-        .loading-section {
-            flex: 1;
-            max-width: 600px;
+        .bottom-content {
+            height: 100%;
+            padding: 0 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
-        .loading-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(255, 90, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 30px rgba(255, 90, 0, 0.2);
+        /* Loading Progress Bar */
+        .loading-bar {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 18px;
         }
         
         .status-text {
-            font-size: 1.4em;
-            margin-bottom: 25px;
-            color: #ff8c00;
-            text-align: center;
-            font-weight: 700;
+            font-size: 1.1em;
+            color: #888;
+            min-width: 350px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .progress-container {
-            margin-bottom: 25px;
-        }
-        
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.9em;
-            color: #cccccc;
-        }
-        
-        #progress-bar {
-            width: 100%;
-            height: 8px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+        .progress-bar {
+            flex: 1;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             overflow: hidden;
             position: relative;
         }
         
-        #progress {
+        .progress-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, #ff5a00, #ff8c00);
-            border-radius: 20px;
+            background: white;
             transition: width 0.3s ease;
-            position: relative;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         
-        #progress::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmer 2s infinite;
+        .progress-percent {
+            font-size: 1.5em;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: right;
         }
         
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        /* Rules Section */
-        .rules-section {
-            flex: 1;
-            max-width: 500px;
-        }
-        
-        .rules-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(255, 90, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 30px rgba(255, 90, 0, 0.2);
-        }
-        
-        .rules-title {
-            color: #ff5a00;
-            margin: 0 0 30px 0;
-            font-size: 2.2em;
+        /* Rules Row */
+        .rules-row {
+            display: flex;
+            gap: 40px;
+            font-size: 0.85em;
+            color: #444;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            text-align: center;
-            font-weight: 700;
+            letter-spacing: 1px;
         }
         
-        .rules-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        .rules-row div {
+            transition: color 0.3s ease;
+            cursor: default;
         }
         
-        .rules-list li {
-            margin-bottom: 20px;
-            padding: 15px 20px;
-            background: rgba(255, 90, 0, 0.1);
-            border-left: 4px solid #ff5a00;
-            border-radius: 8px;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-        }
-        
-        .rules-list li:hover {
-            background: rgba(255, 90, 0, 0.2);
-            transform: translateX(5px);
-        }
-        
-        .rule-number {
-            color: #ff5a00;
-            font-weight: 700;
-            margin-right: 10px;
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-        }
-        
-        .connection-info {
-            font-size: 1em;
+        .rules-row div:hover {
             color: #888;
-            font-weight: 400;
         }
         
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .center-content {
-                flex-direction: column;
-                gap: 40px;
+        /* Responsive adjustments */
+        @media (max-width: 1400px) {
+            .server-name {
+                font-size: 2em;
             }
             
-            .server-title {
-                font-size: 4em;
+            .top-content,
+            .bottom-content {
+                padding: 0 40px;
+            }
+            
+            .rules-row {
+                gap: 25px;
+                font-size: 0.75em;
+            }
+            
+            .status-text {
+                min-width: 250px;
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="background-slideshow" id="background"></div>
-    <div class="overlay"></div>
+    <!-- Background Slideshow -->
+    <div class="background bg-1 active" id="bg-1"></div>
+    <div class="background bg-2" id="bg-2"></div>
+    <div class="background bg-3" id="bg-3"></div>
+    <div class="background bg-4" id="bg-4"></div>
+    <div class="background bg-5" id="bg-5"></div>
+    <div class="vignette"></div>
     
+    <!-- Background Music -->
     <audio id="background-music" loop>
         <source src="music.mp3" type="audio/mp3">
     </audio>
     
-    <div class="main-container">
-        <div class="header">
-            <h1 class="server-title">Clone Wars RP</h1>
-            <div class="server-subtitle" id="map-name">Galactic Republic</div>
-        </div>
-        
-        <div class="center-content">
-            <div class="loading-section">
-                <div class="loading-card">
-                    <div class="status-text" id="status-text">Connecting to Galaxy...</div>
-                    
-                    <div class="progress-container">
-                        <div class="progress-label">
-                            <span>Loading Progress</span>
-                            <span id="progress-percent">0%</span>
-                        </div>
-                        <div id="progress-bar">
-                            <div id="progress"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="connection-info">
-                        <div>Establishing secure connection...</div>
-                    </div>
+    <!-- Top Bar -->
+    <div class="letterbox-top">
+        <div class="top-content">
+            <div class="server-name" id="server-name">VEX NETWORKS</div>
+            <div class="server-info">
+                <div class="info-item">
+                    <div class="info-label">Map</div>
+                    <div class="info-value" id="map-name">Loading...</div>
                 </div>
-            </div>
-            
-            <div class="rules-section">
-                <div class="rules-card">
-                    <h2 class="rules-title">Server Protocol</h2>
-                    <ul class="rules-list">
-                        <li><span class="rule-number">01</span>Follow All Server Rules</li>
-                        <li><span class="rule-number">02</span>No unauthorized combat (RDM)</li>
-                        <li><span class="rule-number">03</span>Obey the golden rule</li>
-                        <li><span class="rule-number">04</span>Follow chain of command</li>
-                        <li><span class="rule-number">05</span>Respect everyone</li>
-                    </ul>
+                <div class="info-item">
+                    <div class="info-label">Players</div>
+                    <div class="info-value" id="player-count">--/--</div>
                 </div>
             </div>
         </div>
-        
-        <div class="footer">
-            <div class="connection-info">May the Force be with you, soldier.</div>
+    </div>
+    
+    <!-- Bottom Bar -->
+    <div class="letterbox-bottom">
+        <div class="bottom-content">
+            <div class="loading-bar">
+                <div class="status-text" id="status-text">CONNECTING TO SERVER...</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-percent" id="progress-percent">0%</div>
+            </div>
+            <div class="rules-row">
+                <div>Follow All Server Rules</div>
+                <div>No RDM</div>
+                <div>Obey The Golden Rule</div>
+                <div>Follow Chain Of Command</div>
+                <div>Respect Everyone</div>
+            </div>
         </div>
     </div>
     
     <script>
-        // Slideshow variables
-        const backgroundGifs = ['background1.gif', 'background2.gif', 'background3.gif', 'background4.gif', 'background5.gif'];
-        let shuffledOrder = [];
-        let currentIndex = 0;
+        // ========================================
+        // BACKGROUND SLIDESHOW SYSTEM
+        // ========================================
+        const backgrounds = [
+            { id: 'bg-1', duration: 8000 },  // Clone troopers - zoom in
+            { id: 'bg-2', duration: 6000 },  // Clone troopers GIF
+            { id: 'bg-3', duration: 8000 },  // Single trooper - zoom + pan
+            { id: 'bg-4', duration: 6000 },  // AT-TE walker GIF
+            { id: 'bg-5', duration: 10000 }  // Battle scene - pan right
+        ];
         
-        // Loading progress variables
-        window.filesTotal = 0;
-        window.filesNeeded = 0;
-        window.maxProgress = 0;
-        window.downloadedFiles = 0;
+        let currentBgIndex = 0;
+        let shuffledBackgrounds = [];
         
-        // Shuffle function
+        // Shuffle array function
         function shuffleArray(array) {
             const shuffled = [...array];
             for (let i = shuffled.length - 1; i > 0; i--) {
@@ -319,60 +334,85 @@
         
         // Initialize slideshow
         function initSlideshow() {
-            shuffledOrder = shuffleArray(backgroundGifs);
-            currentIndex = 0;
-            const background = document.getElementById('background');
-            background.style.backgroundImage = `url('${shuffledOrder[currentIndex]}')`;
-            background.style.opacity = 1;
+            shuffledBackgrounds = shuffleArray(backgrounds);
+            currentBgIndex = 0;
+            
+            // Make first background active
+            const firstBg = document.getElementById(shuffledBackgrounds[0].id);
+            if (firstBg) {
+                firstBg.classList.add('active');
+            }
+            
+            // Schedule next transition
+            scheduleNextSlide();
         }
         
-        // Change to next slide
+        // Transition to next slide
         function nextSlide() {
-            const background = document.getElementById('background');
+            // Fade out current
+            const currentBg = document.getElementById(shuffledBackgrounds[currentBgIndex].id);
+            if (currentBg) {
+                currentBg.classList.remove('active');
+            }
             
-            background.style.opacity = 0;
+            // Move to next
+            currentBgIndex++;
             
+            // Reshuffle when all slides shown
+            if (currentBgIndex >= shuffledBackgrounds.length) {
+                shuffledBackgrounds = shuffleArray(backgrounds);
+                currentBgIndex = 0;
+            }
+            
+            // Fade in next
             setTimeout(() => {
-                currentIndex++;
-                
-                if (currentIndex >= shuffledOrder.length) {
-                    shuffledOrder = shuffleArray(backgroundGifs);
-                    currentIndex = 0;
+                const nextBg = document.getElementById(shuffledBackgrounds[currentBgIndex].id);
+                if (nextBg) {
+                    nextBg.classList.add('active');
                 }
-                
-                background.style.backgroundImage = `url('${shuffledOrder[currentIndex]}')`;
-                
-                setTimeout(() => {
-                    background.style.opacity = 1;
-                }, 100);
-                
-            }, 800);
+            }, 800); // Wait for fade out
+            
+            // Schedule next transition
+            scheduleNextSlide();
         }
         
-        // Start slideshow
+        // Schedule next slide based on current slide duration
+        function scheduleNextSlide() {
+            const currentDuration = shuffledBackgrounds[currentBgIndex].duration;
+            setTimeout(nextSlide, currentDuration);
+        }
+        
+        // Start slideshow on load
         document.addEventListener('DOMContentLoaded', function() {
             initSlideshow();
-            setInterval(nextSlide, 6000);
         });
+        
+        // ========================================
+        // LOADING PROGRESS SYSTEM
+        // ========================================
+        window.filesTotal = 0;
+        window.filesNeeded = 0;
+        window.maxProgress = 0;
+        window.downloadedFiles = 0;
         
         // Force progress to specific percentage
         function forceProgress(percentage, reason) {
-            const progressBar = document.getElementById('progress');
+            const progressFill = document.getElementById('progress-fill');
             const progressText = document.getElementById('progress-percent');
             
             window.maxProgress = Math.max(window.maxProgress, percentage);
             
-            if (progressBar) {
-                progressBar.style.width = percentage + "%";
+            if (progressFill) {
+                progressFill.style.width = percentage + "%";
             }
             if (progressText) {
                 progressText.textContent = percentage + "%";
             }
             
-            console.log(`FORCED Progress to ${percentage}% - Reason: ${reason}`);
+            console.log(`Progress forced to ${percentage}% - ${reason}`);
         }
         
-        // Progress update function
+        // Update progress based on file downloads
         function updateProgress() {
             try {
                 let progress = 0;
@@ -386,46 +426,60 @@
                 
                 progress = Math.max(0, Math.min(100, progress));
                 
-                // Only update if progress is higher than before
+                // Only update if progress increased
                 if (progress > window.maxProgress) {
                     window.maxProgress = progress;
                     
-                    const progressBar = document.getElementById('progress');
+                    const progressFill = document.getElementById('progress-fill');
                     const progressText = document.getElementById('progress-percent');
                     
-                    if (progressBar) {
-                        progressBar.style.width = progress + "%";
+                    if (progressFill) {
+                        progressFill.style.width = progress + "%";
                     }
                     if (progressText) {
                         progressText.textContent = progress + "%";
                     }
                 }
                 
-                console.log(`Progress: ${progress}% (Max: ${window.maxProgress}%)`);
-                
             } catch (error) {
                 console.log("Progress update error:", error);
             }
         }
         
-        // Garry's Mod loading API functions
+        // ========================================
+        // GARRY'S MOD API FUNCTIONS
+        // ========================================
+        
         function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, language) {
             try {
-                document.querySelector('.server-title').textContent = servername || 'Clone Wars RP';
+                // Update server name
+                const serverNameElement = document.getElementById('server-name');
+                if (serverNameElement && servername) {
+                    serverNameElement.textContent = servername;
+                }
                 
-                // Update the map name subtitle
+                // Update map name
                 const mapElement = document.getElementById('map-name');
                 if (mapElement && mapname) {
                     mapElement.textContent = mapname;
                 }
                 
-                var music = document.getElementById('background-music');
+                // Update player count
+                const playerElement = document.getElementById('player-count');
+                if (playerElement && maxplayers) {
+                    playerElement.textContent = `--/${maxplayers}`;
+                }
+                
+                // Start background music
+                const music = document.getElementById('background-music');
                 if (music && volume !== undefined) {
                     music.volume = Math.max(0, Math.min(1, volume));
                     music.play().catch(function(error) {
-                        console.log("Audio couldn't play automatically:", error);
+                        console.log("Audio autoplay blocked:", error);
                     });
                 }
+                
+                console.log("GameDetails loaded:", servername, mapname);
             } catch (error) {
                 console.log("GameDetails error:", error);
             }
@@ -460,7 +514,8 @@
                 
                 const statusElement = document.getElementById('status-text');
                 if (statusElement && fileName) {
-                    statusElement.textContent = "Downloading: " + fileName.split('/').pop();
+                    const shortName = fileName.split('/').pop();
+                    statusElement.textContent = "DOWNLOADING: " + shortName.toUpperCase();
                 }
                 
                 console.log("Downloading:", fileName);
@@ -474,33 +529,34 @@
             try {
                 const statusElement = document.getElementById('status-text');
                 if (statusElement && status) {
-                    statusElement.textContent = status;
-                    
-                    // FORCE SPECIFIC PROGRESS BASED ON STATUS
-                    const statusLower = status.toLowerCase();
-                    
-                    if (statusLower.includes('lua started') || statusLower.includes('starting lua')) {
-                        forceProgress(99, 'Lua Started');
-                    }
-                    else if (statusLower.includes('lua') && statusLower.includes('start')) {
-                        forceProgress(95, 'Lua Starting');
-                    }
-                    else if (statusLower.includes('connection') || statusLower.includes('secure')) {
-                        forceProgress(Math.max(window.maxProgress, 75), 'Secure Connection');
-                    }
-                    else if (statusLower.includes('retrieving') || statusLower.includes('server info')) {
-                        forceProgress(Math.max(window.maxProgress, 30), 'Retrieving Server Info');
-                    }
-                    else if (statusLower.includes('workshop')) {
-                        forceProgress(Math.max(window.maxProgress, 50), 'Workshop Content');
-                    }
-                    else if (statusLower.includes('sending client info')) {
-                        forceProgress(Math.max(window.maxProgress, 85), 'Sending Client Info');
-                    }
-                    else if (statusLower.includes('spawning')) {
-                        forceProgress(100, 'Spawning Player');
-                    }
+                    statusElement.textContent = status.toUpperCase();
                 }
+                
+                // Force progress based on status
+                const statusLower = status.toLowerCase();
+                
+                if (statusLower.includes('lua started') || statusLower.includes('starting lua')) {
+                    forceProgress(99, 'Lua Started');
+                }
+                else if (statusLower.includes('lua') && statusLower.includes('start')) {
+                    forceProgress(95, 'Lua Starting');
+                }
+                else if (statusLower.includes('connection') || statusLower.includes('secure')) {
+                    forceProgress(Math.max(window.maxProgress, 75), 'Secure Connection');
+                }
+                else if (statusLower.includes('retrieving') || statusLower.includes('server info')) {
+                    forceProgress(Math.max(window.maxProgress, 30), 'Retrieving Server Info');
+                }
+                else if (statusLower.includes('workshop')) {
+                    forceProgress(Math.max(window.maxProgress, 50), 'Workshop Content');
+                }
+                else if (statusLower.includes('sending client info')) {
+                    forceProgress(Math.max(window.maxProgress, 85), 'Sending Client Info');
+                }
+                else if (statusLower.includes('spawning')) {
+                    forceProgress(100, 'Spawning Player');
+                }
+                
                 console.log("Status:", status);
             } catch (error) {
                 console.log("SetStatusChanged error:", error);
