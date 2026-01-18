@@ -33,7 +33,7 @@
             background-position: center;
             z-index: 0;
             opacity: 0;
-            transition: opacity 0.8s ease-in-out;
+            transition: opacity 1s ease-in-out;
         }
         
         .background.active {
@@ -48,7 +48,7 @@
         
         .bg-2 {
             background-image: url('Star-Wars-Clones.gif');
-            /* GIF animates itself, no CSS animation */
+            background-size: cover;
         }
         
         .bg-3 {
@@ -58,12 +58,13 @@
         
         .bg-4 {
             background-image: url('c1ssjwiwkhu21.gif');
-            /* GIF animates itself, no CSS animation */
+            background-size: cover;
         }
         
         .bg-5 {
             background-image: url('thumb-1920-1033111.jpg');
             animation: panRight 30s linear infinite;
+            background-size: 120% auto;
         }
         
         /* Animation keyframes */
@@ -88,27 +89,27 @@
             100% { background-position: 100% center; }
         }
         
-        /* Subtle vignette overlay */
+        /* Dark gradient overlay for text readability */
         .vignette {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%);
+            background: 
+                linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.8) 100%);
             pointer-events: none;
             z-index: 1;
         }
         
-        /* Top Letterbox Bar */
+        /* Top Bar - Much Smaller */
         .letterbox-top {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100px;
-            background: rgba(0, 0, 0, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
             z-index: 2;
         }
         
@@ -117,58 +118,59 @@
             justify-content: space-between;
             align-items: center;
             height: 100%;
-            padding: 0 60px;
+            padding: 0 40px;
         }
         
         .server-name {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: 900;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
         
         .server-info {
             display: flex;
-            gap: 50px;
-            font-size: 1em;
+            gap: 40px;
+            font-size: 0.9em;
             font-weight: 300;
-            color: #666;
+            color: #888;
         }
         
         .info-item {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
         
         .info-label {
-            font-size: 0.75em;
+            font-size: 0.7em;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         
         .info-value {
             color: #fff;
-            font-size: 1.3em;
+            font-size: 1.1em;
             font-weight: 600;
         }
         
-        /* Bottom Letterbox Bar */
+        /* Bottom Bar - Much Smaller */
         .letterbox-bottom {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 120px;
-            background: rgba(0, 0, 0, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            height: 80px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
             z-index: 2;
         }
         
         .bottom-content {
             height: 100%;
-            padding: 0 60px;
+            padding: 0 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -178,22 +180,23 @@
         .loading-bar {
             display: flex;
             align-items: center;
-            gap: 30px;
-            margin-bottom: 18px;
+            gap: 25px;
+            margin-bottom: 12px;
         }
         
         .status-text {
-            font-size: 1.1em;
-            color: #888;
-            min-width: 350px;
+            font-size: 1em;
+            color: #999;
+            min-width: 280px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
         
         .progress-bar {
             flex: 1;
             height: 3px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             overflow: hidden;
             position: relative;
@@ -204,55 +207,34 @@
             height: 100%;
             background: white;
             transition: width 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
         
         .progress-percent {
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: 600;
-            min-width: 80px;
+            min-width: 70px;
             text-align: right;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
         
         /* Rules Row */
         .rules-row {
             display: flex;
-            gap: 40px;
-            font-size: 0.85em;
-            color: #444;
+            gap: 30px;
+            font-size: 0.75em;
+            color: #555;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
         
         .rules-row div {
             transition: color 0.3s ease;
-            cursor: default;
         }
         
         .rules-row div:hover {
-            color: #888;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 1400px) {
-            .server-name {
-                font-size: 2em;
-            }
-            
-            .top-content,
-            .bottom-content {
-                padding: 0 40px;
-            }
-            
-            .rules-row {
-                gap: 25px;
-                font-size: 0.75em;
-            }
-            
-            .status-text {
-                min-width: 250px;
-                font-size: 1em;
-            }
+            color: #999;
         }
     </style>
 </head>
@@ -312,15 +294,16 @@
         // BACKGROUND SLIDESHOW SYSTEM
         // ========================================
         const backgrounds = [
-            { id: 'bg-1', duration: 8000 },  // Clone troopers - zoom in
-            { id: 'bg-2', duration: 6000 },  // Clone troopers GIF
-            { id: 'bg-3', duration: 8000 },  // Single trooper - zoom + pan
-            { id: 'bg-4', duration: 6000 },  // AT-TE walker GIF
-            { id: 'bg-5', duration: 10000 }  // Battle scene - pan right
+            { id: 'bg-1', duration: 10000 },  // Clone troopers - zoom in - 10s
+            { id: 'bg-2', duration: 8000 },   // Clone troopers GIF - 8s
+            { id: 'bg-3', duration: 10000 },  // Single trooper - zoom + pan - 10s
+            { id: 'bg-4', duration: 8000 },   // AT-TE walker GIF - 8s
+            { id: 'bg-5', duration: 12000 }   // Battle scene - pan right - 12s
         ];
         
         let currentBgIndex = 0;
         let shuffledBackgrounds = [];
+        let transitionTimeout;
         
         // Shuffle array function
         function shuffleArray(array) {
@@ -337,10 +320,11 @@
             shuffledBackgrounds = shuffleArray(backgrounds);
             currentBgIndex = 0;
             
-            // Make first background active
+            // Make first background active immediately
             const firstBg = document.getElementById(shuffledBackgrounds[0].id);
             if (firstBg) {
                 firstBg.classList.add('active');
+                console.log('First background:', shuffledBackgrounds[0].id);
             }
             
             // Schedule next transition
@@ -353,6 +337,7 @@
             const currentBg = document.getElementById(shuffledBackgrounds[currentBgIndex].id);
             if (currentBg) {
                 currentBg.classList.remove('active');
+                console.log('Hiding:', shuffledBackgrounds[currentBgIndex].id);
             }
             
             // Move to next
@@ -360,17 +345,19 @@
             
             // Reshuffle when all slides shown
             if (currentBgIndex >= shuffledBackgrounds.length) {
+                console.log('Reshuffling backgrounds...');
                 shuffledBackgrounds = shuffleArray(backgrounds);
                 currentBgIndex = 0;
             }
             
-            // Fade in next
+            // Fade in next after transition completes
             setTimeout(() => {
                 const nextBg = document.getElementById(shuffledBackgrounds[currentBgIndex].id);
                 if (nextBg) {
                     nextBg.classList.add('active');
+                    console.log('Showing:', shuffledBackgrounds[currentBgIndex].id, 'for', shuffledBackgrounds[currentBgIndex].duration, 'ms');
                 }
-            }, 800); // Wait for fade out
+            }, 1000); // Wait for fade out
             
             // Schedule next transition
             scheduleNextSlide();
@@ -378,12 +365,17 @@
         
         // Schedule next slide based on current slide duration
         function scheduleNextSlide() {
+            if (transitionTimeout) {
+                clearTimeout(transitionTimeout);
+            }
             const currentDuration = shuffledBackgrounds[currentBgIndex].duration;
-            setTimeout(nextSlide, currentDuration);
+            console.log('Next transition in:', currentDuration, 'ms');
+            transitionTimeout = setTimeout(nextSlide, currentDuration);
         }
         
         // Start slideshow on load
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing slideshow...');
             initSlideshow();
         });
         
@@ -452,25 +444,21 @@
         
         function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, language) {
             try {
-                // Update server name
                 const serverNameElement = document.getElementById('server-name');
                 if (serverNameElement && servername) {
                     serverNameElement.textContent = servername;
                 }
                 
-                // Update map name
                 const mapElement = document.getElementById('map-name');
                 if (mapElement && mapname) {
                     mapElement.textContent = mapname;
                 }
                 
-                // Update player count
                 const playerElement = document.getElementById('player-count');
                 if (playerElement && maxplayers) {
                     playerElement.textContent = `--/${maxplayers}`;
                 }
                 
-                // Start background music
                 const music = document.getElementById('background-music');
                 if (music && volume !== undefined) {
                     music.volume = Math.max(0, Math.min(1, volume));
@@ -532,7 +520,6 @@
                     statusElement.textContent = status.toUpperCase();
                 }
                 
-                // Force progress based on status
                 const statusLower = status.toLowerCase();
                 
                 if (statusLower.includes('lua started') || statusLower.includes('starting lua')) {
