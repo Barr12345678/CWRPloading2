@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vex Networks CWRP Loading Screen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Video Background -->
+    <video autoplay loop muted id="background-video">
+        <source src="background.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Audio (plays when player joins) -->
+    <audio id="background-music" loop>
+        <source src="music.mp3" type="audio/mp3">
+    </audio>
+    
+    <!-- Loading Content -->
+    <div class="content">
+        <div class="logo">
+            <img src="logo.png" alt="Server Logo">
+        </div>
+        <h1>Vex Networks CWRP</h1>
+        
+        <div class="progress-container">
+            <div id="progress-bar"><div id="progress"></div></div>
+            <div id="status-text">Connecting...</div>
+        </div>
+        
+        <div class="server-info">
+            <div class="rules">
+                <h2>Server Rules</h2>
+                <ol>
+                    <li>Respect all players</li>
+                    <li>No RDM (Random Death Match)</li>
+                    <li>Follow the RP guidelines</li>
+                    <li>Listen to staff</li>
+                    <li>Have fun!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
